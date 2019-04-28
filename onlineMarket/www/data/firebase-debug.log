@@ -1,0 +1,45 @@
+[debug] [2018-04-20T23:20:59.917Z] ----------------------------------------------------------------------
+[debug] [2018-04-20T23:20:59.925Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init [firebase.json]
+[debug] [2018-04-20T23:20:59.925Z] CLI Version:   3.18.4
+[debug] [2018-04-20T23:20:59.925Z] Platform:      darwin
+[debug] [2018-04-20T23:20:59.926Z] Node Version:  v9.4.0
+[debug] [2018-04-20T23:20:59.926Z] Time:          Fri Apr 20 2018 18:20:59 GMT-0500 (CDT)
+[debug] [2018-04-20T23:20:59.926Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-20T23:20:59.976Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2018-04-20T23:20:59.976Z] > authorizing via signed-in user
+[info] 
+     🔥🔥🔥🔥🔥🔥🔥🔥 🔥🔥🔥🔥 🔥🔥🔥🔥🔥🔥🔥🔥  🔥🔥🔥🔥🔥🔥🔥🔥 🔥🔥🔥🔥🔥🔥🔥🔥     🔥🔥🔥     🔥🔥🔥🔥🔥🔥  🔥🔥🔥🔥🔥🔥🔥🔥
+     🔥🔥        🔥🔥  🔥🔥     🔥🔥 🔥🔥       🔥🔥     🔥🔥  🔥🔥   🔥🔥  🔥🔥       🔥🔥
+     🔥🔥🔥🔥🔥🔥    🔥🔥  🔥🔥🔥🔥🔥🔥🔥🔥  🔥🔥🔥🔥🔥🔥   🔥🔥🔥🔥🔥🔥🔥🔥  🔥🔥🔥🔥🔥🔥🔥🔥🔥  🔥🔥🔥🔥🔥🔥  🔥🔥🔥🔥🔥🔥
+     🔥🔥        🔥🔥  🔥🔥    🔥🔥  🔥🔥       🔥🔥     🔥🔥 🔥🔥     🔥🔥       🔥🔥 🔥🔥
+     🔥🔥       🔥🔥🔥🔥 🔥🔥     🔥🔥 🔥🔥🔥🔥🔥🔥🔥🔥 🔥🔥🔥🔥🔥🔥🔥🔥  🔥🔥     🔥🔥  🔥🔥🔥🔥🔥🔥  🔥🔥🔥🔥🔥🔥🔥🔥
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/faridmarashinia/Desktop/Farid Marashinia_CS392_FinalProject/finalproject/www/data
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2018-04-20T23:20:59.990Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+  
+ Fri Apr 20 2018 18:20:59 GMT-0500 (CDT)
+[debug] [2018-04-20T23:21:01.032Z] <<< HTTP RESPONSE 200
+[info] 
+=== [firebase.json] Setup
+[debug] [2018-04-20T23:21:03.626Z] TypeError: features[nextFeature] is not a function
+    at init (/usr/local/lib/node_modules/firebase-tools/lib/init/index.js:13:49)
+    at /usr/local/lib/node_modules/firebase-tools/lib/init/index.js:14:14
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:160:7)
+[error] 
+[error] Error: An unexpected error has occurred.

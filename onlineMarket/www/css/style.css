@@ -1,0 +1,54 @@
+/*
+md-card img {
+  width: 100%;
+  height: auto;
+  min-height: 0px;
+}
+*/
+
+button .material-icons {
+  margin-top: 7px;
+}
+
+.filters md-input-container {
+  margin-right: 5px;
+}
+
+.project.ng-enter, .project.ng-move {
+  transition: 0.4s all;
+  opacity: 0;
+}
+
+.project.ng-enter.ng-enter-active, .project.ng-move.ng-move-active {
+  opacity: 1;
+}
+
+.project.ng-leave {
+  animation: 0.4s fade_project;
+}
+
+@keyframes fade_project {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+/*
+.parahraphStyle {
+  width: 100%;
+}
+*/
+
+.formStyle {
+  width: 100%;
+}
+.sidenavStyle {
+  width: 100%;
+}
+.ngProjects md-content {
+  background-color: transparent !important; }
+.ngProjects md-content md-tabs {
+  background: #f6f6f6;
+  border: 1px solid #e1e1e1; }
+.ngProjects md-content md-tabs md-tabs-wrapper {
+  background: white; }
+.ngProjects md-content h1:first-child {
+  margin-top: 0; }

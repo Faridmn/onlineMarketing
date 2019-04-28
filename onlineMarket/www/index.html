@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Final Project</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="node_modules/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+</head>
+<body ng-app="ngProjects" ng-controller="projectsController">
+
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <h3>{{ message }}</h3>
+        <md-button ng-click="openSidebar()">
+            <md-icon class="mdi mdi-plus-circle"></md-icon>
+            <p style="white-space: normal; line-height: 0px">New Item</p>
+        </md-button>
+
+        <md-button ng-click="showFilters = !showFilters">
+            <md-icon class="mdi mdi-magnify"></md-icon>
+            <p style="white-space: normal; line-height: 0px">Filters</p>
+        </md-button>
+    </div>
+    <div ng-cloak>
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="General Information">
+                    <md-content class="md-padding" color="black">
+                        <h1 class="md-display-2">General</h1>
+                        <p>This is the final project for the CS 392 course.</p>
+                    </md-content>
+                </md-tab>
+                <md-tab label="About Us">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">About Us</h1>
+                        <p>This is an inventory app designed to allow its users to post their items on it for the pupose of selling.</p>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Contact Us">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">Contact Us</h1>
+                        <p> Farid Marashinia <br>
+                            CS392 <br>
+                            Final Project <br>
+                            fmarashi@uab.edu <br>
+                        </p>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</md-toolbar>
+<div class="filters" layout="row" layout-align="center center" ng-show="showFilters" style="font-size: 70%">
+    <md-input-container>
+        <label>Enter a Search Term</label>
+        <input ng-model="projectsFilter" type="text">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Category</label>
+        <md-select ng-model="category">
+            <md-option ng-repeat="category in categories" value="{{ category }}">
+                {{ category }}
+            </md-option>
+        </md-select>
+    </md-input-container>
+
+    <div layout="row">
+        <md-button ng-click="projectsFilter = '';category=''" class="md-warn">
+            Clear
+        </md-button>
+    </div>
+
+</div>
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 sidenavStyle" md-component-id="left">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">{{ sidebarTitle }}</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+        <form class="formStyle">
+            <md-input-container>
+                <label for="title">Title</label>
+                <input type="text" id="title"
+                       ng-model="project.title" md-autofocus>
+            </md-input-container>
+            <md-input-container>
+                <label for="price">Price</label>
+                <input type="text" id="price"
+                       ng-model="project.price">
+            </md-input-container>
+            <md-input-container>
+                <label for="description">Description</label>
+                <textarea type="text" id="description"
+                          ng-model="project.description">
+            </textarea>
+            </md-input-container>
+            <md-input-container>
+                <label for="image">Image Link</label>
+                <input type="text" id="image"
+                       ng-model="project.image">
+            </md-input-container>
+            <md-button ng-if="!editing" ng-click="saveProject(project)" class="md-primary">
+                Save
+            </md-button>
+            <md-button ng-if="editing" ng-click="saveEdit()" class="md-primary">
+                Save Edit
+            </md-button>
+            <md-button ng-click="closeSidebar()" class="md-warn">
+                Cancel
+            </md-button>
+        </form>
+    </md-content>
+</md-sidenav>
+
+<md-content flex layout="column" layout-padding>
+    <md-card ng-repeat="project in projects |
+               filter: projectsFilter |
+               filter: category"
+
+             class="project mdCardStyle">
+        <img ng-src="{{ project.image }}" class="md-card-image">
+        <md-card-content>
+            <div class="project-info" ng-show="!showContact">
+                <h2 class="md-title">{{ project.title }}</h2>
+                <h3>{{ project.price | currency }}</h3>
+                <p class="parahraphStyle">{{ project.description }}</p>
+            </div>
+
+            <div class="project-contact" ng-show="showContact">
+                <p>
+                    <md-icon class="mdi mdi-account"></md-icon>
+                    {{ project.contact.name }}
+                </p>
+                <p>
+                    <md-icon class="mdi mdi-phone"></md-icon>
+                    {{ project.contact.phone }}
+                </p>
+                <p>
+                    <md-icon class="mdi mdi-email"></md-icon>
+                    {{ project.contact.email }}
+                </p>
+            </div>
+
+            <div layout="column">
+                <md-button style="border-style: solid; border-width: 2px"
+                           ng-click="showContact = true"
+                           ng-show="!showContact">
+                    Contact
+                </md-button>
+
+                <md-button style="border-style: solid; border-width: 2px"
+                           ng-click="showContact = false"
+                           ng-show="showContact">
+                    Details
+                </md-button>
+
+                <md-button style="border-style: solid; border-width: 2px"
+                           ng-click="showChange = true"
+                           ng-show="!showChange">
+                    Change
+                </md-button>
+
+                <md-button style="border-style: solid; border-width: 2px"
+                           ng-click="showChange = false"
+                           ng-show="showChange">
+                    Close
+                </md-button>
+            </div>
+
+            <div class="project-change" ng-if="showChange">
+                <h3>Change</h3>
+                <div layout="columns">
+                    <md-button style="border-style: solid; border-width: 2px"
+                               class="md-primary"
+                               ng-click="editProject(project)">
+                        Edit
+                    </md-button>
+                    <md-button style="border-style: solid; border-width: 2px"
+                               class="md-primary"
+                               ng-click="deleteProject($event, project)">
+                        Delete
+                    </md-button>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-animate/angular-animate.js"></script>
+<script src="node_modules/angular-aria/angular-aria.js"></script>
+<script src="node_modules/angular-material/angular-material.js"></script>
+<script src="node_modules/angular-material-icons/angular-material-icons.js"></script>
+
+<script src="components/app.js"></script>
+<script src="components/project/project.fac.js"></script>
+<script src="components/project/project.ctr.js"></script>
+<script src="components/project/contact.html"></script>
+<script src="components/project/contact.js"></script>
+<script src="components/project/About.html"></script>
+<script src="components/project/About.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyD7eKYFtDH_YvmLG87MmDYrKy8pQ0BMkSE",
+        authDomain: "cs392project.firebaseapp.com",
+        databaseURL: "https://cs392project.firebaseio.com",
+        projectId: "cs392project",
+        storageBucket: "cs392project.appspot.com",
+        messagingSenderId: "515831248977"
+    };
+    firebase.initializeApp(config);
+</script>
+</body>
+</html>
